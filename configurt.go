@@ -102,6 +102,12 @@ func (c *Client) GetAsFloat(configKey string) float64 {
 	return val.(float64)
 }
 
+// GetAsFloat returns config value as int
+func (c *Client) GetAsInt(configKey string) int {
+	val := c.Get(configKey)
+	return val.(int)
+}
+
 // GetAsStringArray returns config value as string array
 func (c *Client) GetAsStringArray(configKey string) []string {
 	val := c.Get(configKey)
@@ -125,4 +131,15 @@ func (c *Client) GetAsFloatArray(configKey string) []float64 {
 		floatArray = append(floatArray, floatv)
 	}
 	return floatArray
+}
+
+func (c *Client) GetAsIntArray(configKey string) []int {
+	val := c.Get(configKey)
+	array := val.([]interface{})
+	intArray := []int{}
+	for _, v := range array {
+		intv := v.(int)
+		intArray = append(intArray, intv)
+	}
+	return intArray
 }
